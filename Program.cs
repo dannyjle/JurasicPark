@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace JurasicPark
 {
@@ -82,8 +83,6 @@ namespace JurasicPark
             dino.Weight = PromptForInteger("What is the Dinosaur's weight [in pounds]? ");
             dino.EnclosureNumber = PromptForInteger("What is the Dinosaur's enclosure number?");
 
-            //Added a description line
-            dino.Description = $"Name: {dino.Name}, Diet: {dino.DietType}, Date Acquired: {dino.WhenAcquired}, Weight: {dino.Weight}, Enclosure Number: {dino.EnclosureNumber} ";
 
             Console.WriteLine();
             Console.WriteLine($"The new Dinosaur -{dino.Name}- will be added to the Database!");
@@ -91,10 +90,13 @@ namespace JurasicPark
 
             dinoList.Add(dino);
 
-            // Then we are going to create a boolean statement to run a “While” loop for our program.
+
+            //Added a description line
+            dino.Description = $"Name: {dino.Name}, Diet: {dino.DietType}, Date Acquired: {dino.WhenAcquired}, Weight: {dino.Weight}, Enclosure Number: {dino.EnclosureNumber} ";
 
             var keepGoing = true;
 
+            // Then we are going to create a boolean statement to run a “While” loop for our program.
             while (keepGoing)
 
             {
@@ -111,24 +113,58 @@ namespace JurasicPark
                     keepGoing = false;
                 }
                 // If ADD
-                else if (choice == "A")
+
+                // If REMOVE
+                else if (choice == "R")
                 {
+                    var name = PromptForString("What name are you looking for: ");
+
+                    var foundDino = dinoList.FirstOrDefault(dino => dino.Name == name);
+
+                    if (foundDino == null)
+                    {
+                        Console.WriteLine("I can't find that Dinosaur to delete!");
+                    }
+                    else
+                    {
+                        dinoList.Remove(foundDino);
+                        Console.WriteLine($"Goodbye {name}");
+                    }
+                }
+
+
+                // IF V
+                else if (choice == "V")
+                {
+                    foreach (var saur in dinoList)
+                    {
+                        Console.WriteLine(dino.Description);
+                    }
+                    var WhenAcquired = dinoList.OrderBy(dinosaur => dinosaur.WhenAcquired);
+                }
+                else
+                {
+
                     dino.Name = PromptForString("What is the Dinosaur's name? ").ToUpper();
                     dino.DietType = PromptForString("What is the Dinosaur's diet type: [Carnivore/Herbivore]? ").ToUpper();
                     dino.WhenAcquired = DateTime.Now;
                     dino.Weight = PromptForInteger("What is the Dinosaur's weight [in pounds]? ");
                     dino.EnclosureNumber = PromptForInteger("What is the Dinosaur's enclosure number?");
 
+                    Console.WriteLine();
+                    Console.WriteLine($"The new Dinosaur -{dino.Name}- will be added to the Database!");
+                    Console.WriteLine();
+
 
                     dinoList.Add(dino);
                 }
-
-
             }
 
-
-
-
         }
+
+
+
+
     }
 }
+
