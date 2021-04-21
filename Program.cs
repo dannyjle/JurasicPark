@@ -74,30 +74,12 @@ namespace JurasicPark
             var dinoList = new List<Dino>();
 
 
-            //Also create prompt lines for the Dino Class that have been listed: Name, DietType, WhenAcquired, Weight, EnclosureNumber.
-            var dino = new Dino();
-
-            dino.Name = PromptForString("What is the Dinosaur's name? ").ToUpper();
-            dino.DietType = PromptForString("What is the Dinosaur's diet type: [Carnivore/Herbivore]? ").ToUpper();
-            dino.WhenAcquired = DateTime.Now;
-            dino.Weight = PromptForInteger("What is the Dinosaur's weight [in pounds]? ");
-            dino.EnclosureNumber = PromptForInteger("What is the Dinosaur's enclosure number?");
-
-
-            Console.WriteLine();
-            Console.WriteLine($"The new Dinosaur -{dino.Name}- will be added to the Database!");
-            Console.WriteLine();
-
-            dinoList.Add(dino);
-
-
-            //Added a description line
-            dino.Description = $"Name: {dino.Name}, Diet: {dino.DietType}, Date Acquired: {dino.WhenAcquired}, Weight: {dino.Weight}, Enclosure Number: {dino.EnclosureNumber} ";
 
             var keepGoing = true;
 
             // Then we are going to create a boolean statement to run a “While” loop for our program.
             while (keepGoing)
+
 
             {
                 // Next we're going to be asking the user if they wish to [V]iew, [A]dd, [R]emove, [T]ransfer, Diet [S]ummary, or [Quit] by creating a simple menu prompt.
@@ -132,19 +114,23 @@ namespace JurasicPark
                     }
                 }
 
+                // if TRANSFER
+
 
                 // IF V
                 else if (choice == "V")
                 {
+
                     foreach (var saur in dinoList)
                     {
-                        Console.WriteLine(dino.Description);
+                        var WhenAcquired = dinoList.OrderBy(dinosaur => dinosaur.WhenAcquired);
+                        return;
                     }
-                    var WhenAcquired = dinoList.OrderBy(dinosaur => dinosaur.WhenAcquired);
+
                 }
                 else
                 {
-
+                    var dino = new Dino();
                     dino.Name = PromptForString("What is the Dinosaur's name? ").ToUpper();
                     dino.DietType = PromptForString("What is the Dinosaur's diet type: [Carnivore/Herbivore]? ").ToUpper();
                     dino.WhenAcquired = DateTime.Now;
