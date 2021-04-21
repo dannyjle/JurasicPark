@@ -18,6 +18,11 @@ namespace JurasicPark
         public DateTime WhenAcquired { get; set; } = DateTime.Now;
         public int Weight { get; set; }
         public int EnclosureNumber { get; set; }
+
+        //Added a description method
+        public string Description { get; set; }
+
+
     }
     class Program
     {
@@ -77,7 +82,12 @@ namespace JurasicPark
             dino.Weight = PromptForInteger("What is the Dinosaur's weight [in pounds]? ");
             dino.EnclosureNumber = PromptForInteger("What is the Dinosaur's enclosure number?");
 
+            //Added a description line
+            dino.Description = $"Name: {dino.Name}, Diet: {dino.DietType}, Date Acquired: {dino.WhenAcquired}, Weight: {dino.Weight}, Enclosure Number: {dino.EnclosureNumber} ";
+
+            Console.WriteLine();
             Console.WriteLine($"The new Dinosaur -{dino.Name}- will be added to the Database!");
+            Console.WriteLine();
 
             dinoList.Add(dino);
 
@@ -88,6 +98,30 @@ namespace JurasicPark
             while (keepGoing)
 
             {
+                // Next we're going to be asking the user if they wish to [V]iew, [A]dd, [R]emove, [T]ransfer, Diet [S]ummary, or [Quit] by creating a simple menu prompt.
+                Console.WriteLine();
+                Console.Write("What do you want to do? [V]iew, [A]dd, [R]emove, [T]ransfer, Diet [S]ummary, or [Quit] ? ");
+                var choice = Console.ReadLine().ToUpper();
+                Console.WriteLine();
+
+                // If View
+
+                if (choice == "Q")
+                {
+                    keepGoing = false;
+                }
+                else if (choice == "A")
+                {
+                    dino.Name = PromptForString("What is the Dinosaur's name? ").ToUpper();
+                    dino.DietType = PromptForString("What is the Dinosaur's diet type: [Carnivore/Herbivore]? ").ToUpper();
+                    dino.WhenAcquired = DateTime.Now;
+                    dino.Weight = PromptForInteger("What is the Dinosaur's weight [in pounds]? ");
+                    dino.EnclosureNumber = PromptForInteger("What is the Dinosaur's enclosure number?");
+
+
+                    dinoList.Add(dino);
+                }
+
 
             }
 
