@@ -104,12 +104,13 @@ namespace JurasicPark
                 var choice = Console.ReadLine().ToUpper();
                 Console.WriteLine();
 
-                // If View
 
+                // If QUIT
                 if (choice == "Q")
                 {
                     keepGoing = false;
                 }
+                // If ADD
                 else if (choice == "A")
                 {
                     dino.Name = PromptForString("What is the Dinosaur's name? ").ToUpper();
