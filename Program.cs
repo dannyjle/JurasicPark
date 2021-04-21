@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace JurasicPark
 {
@@ -63,6 +64,10 @@ namespace JurasicPark
 
             Greeting();
 
+            // Next we are going to create a List to store all the Dino information that we are going to obtain from the prompting statements we will be creating later.
+            var dinoList = new List<Dino>();
+
+
             //Also create prompt lines for the Dino Class that have been listed: Name, DietType, WhenAcquired, Weight, EnclosureNumber.
             var dino = new Dino();
 
@@ -74,7 +79,7 @@ namespace JurasicPark
 
             Console.WriteLine($"The new Dinosaur -{dino.Name}- will be added to the Database!");
 
-
+            dinoList.Add(dino);
 
             // Then we are going to create a boolean statement to run a “While” loop for our program.
 
