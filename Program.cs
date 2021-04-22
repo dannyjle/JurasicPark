@@ -91,7 +91,7 @@ namespace JurasicPark
             {
                 // Next we're going to be asking the user if they wish to [V]iew, [A]dd, [R]emove, [T]ransfer, Diet [S]ummary, or [Quit] by creating a simple menu prompt.
                 Console.WriteLine();
-                Console.Write("What do you want to do? [V]iew, [D]escription [A]dd, [R]emove, [T]ransfer, [S]ummary, or [Quit] ? ");
+                Console.Write("What do you want to do? [V]iew, [D]escription [A]dd, [R]emove, [T]ransfer, [S]ummary of Diet, or [Q]uit ? ");
                 var choice = Console.ReadLine().ToUpper();
                 Console.WriteLine();
 
@@ -100,11 +100,12 @@ namespace JurasicPark
                 if (choice == "Q")
                 {
                     keepGoing = false;
+                    Console.WriteLine("Exiting Database.... GOODBYE :)");
                 }
                 // IF REMOVE
                 else if (choice == "R")
                 {
-                    var name = PromptForString("What name are you looking for: ");
+                    var name = PromptForString("Who do you want to Remove?: ").ToUpper();
 
                     var foundDino = dinoList.FirstOrDefault(dino => dino.Name == name);
 
@@ -115,14 +116,24 @@ namespace JurasicPark
                     else
                     {
                         dinoList.Remove(foundDino);
-                        Console.WriteLine($"Goodbye {name}");
+                        Console.WriteLine($"{name} has been Removed!");
                     }
                 }
 
                 // IF TRANSFER
                 else if (choice == "T")
                 {
+                    var name = PromptForString("Which Dinosaur do you wish to Transfer? ").ToUpper();
+                    int index = dinoList.FindIndex(dino => name == dino.Name);
 
+                    if (index == -1)
+                        Console.WriteLine($"Could not find '{name}' in the records!");
+                    else
+                    {
+                        var newEnclosure = PromptForInteger($"What Enclosure Number do you want to transfer {name} to? ");
+                        dinoList[index].EnclosureNumber = newEnclosure;
+                        Console.WriteLine($"Transfering {name} to Enclosure Number:{newEnclosure} .... DONE!");
+                    }
                 }
                 // IF DESCRIPTION 
 
@@ -139,12 +150,24 @@ namespace JurasicPark
                 else if (choice == "S")
                 {
 
+                    var carns = 0;
+                    var herbs = 0;
+
+                    foreach (var dino in dinoList)
+                    {
+                        if (dino.DietType == "carnivore")
+                            carns++;
+                        else if (dino.DietType == "herbivore")
+                            herbs++;
+                    }
+
+                    Console.WriteLine($"There are {carns} Carnivores and {herbs} Herbivores.");
                 }
 
                 // IF VIEW
                 else if (choice == "V")
                 {
-                    Console.WriteLine("Would you like to view [A]LL or by [D]ate added? ");
+                    Console.WriteLine("Would you like to View [A]LL or by [D]ATE added? ");
                     var answer = Console.ReadLine().ToUpper();
                     if (answer == "A")
                     {
@@ -154,7 +177,7 @@ namespace JurasicPark
                             Console.WriteLine(saur.Name);
                         }
                     }
-                    else if (answer == "C")
+                    else if (answer == "D")
                     {
                         foreach (var saur in dinoList)
                         {
