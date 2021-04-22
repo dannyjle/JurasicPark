@@ -91,7 +91,7 @@ namespace JurasicPark
             {
                 // Next we're going to be asking the user if they wish to [V]iew, [A]dd, [R]emove, [T]ransfer, Diet [S]ummary, or [Quit] by creating a simple menu prompt.
                 Console.WriteLine();
-                Console.Write("What do you want to do? [V]iew, [A]dd, [R]emove, [T]ransfer, Diet [S]ummary, or [Quit] ? ");
+                Console.Write("What do you want to do? [V]iew, [D]escription [A]dd, [R]emove, [T]ransfer, [S]ummary, or [Quit] ? ");
                 var choice = Console.ReadLine().ToUpper();
                 Console.WriteLine();
 
@@ -120,8 +120,26 @@ namespace JurasicPark
                 }
 
                 // IF TRANSFER
+                else if (choice == "T")
+                {
+
+                }
+                // IF DESCRIPTION 
+
+                else if (choice == "D")
+                {
+                    if (dinoList.Count > 0)
+                    {
+                        foreach (var dino in dinoList)
+                            Console.WriteLine(dino.Description());
+                    }
+                }
 
                 // IF SUMMARY
+                else if (choice == "S")
+                {
+
+                }
 
                 // IF VIEW
                 else if (choice == "V")
