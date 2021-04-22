@@ -20,8 +20,12 @@ namespace JurasicPark
         public int Weight { get; set; }
         public int EnclosureNumber { get; set; }
 
-        //Added a description method
-        public string Description { get; set; }
+        //Added a description method 
+        public string Description()
+        {
+            return $"Name: {Name}, Diet Type: {DietType}, Weight: {Weight}, Enclosure Number: {EnclosureNumber}, Acquired: {WhenAcquired}";
+        }
+
 
 
     }
@@ -70,8 +74,11 @@ namespace JurasicPark
 
             Greeting();
 
+
             // Next we are going to create a List to store all the Dino information that we are going to obtain from the prompting statements we will be creating later.
             var dinoList = new List<Dino>();
+
+
 
 
 
@@ -89,14 +96,12 @@ namespace JurasicPark
                 Console.WriteLine();
 
 
-                // If QUIT
+                // IF QUIT
                 if (choice == "Q")
                 {
                     keepGoing = false;
                 }
-                // If ADD
-
-                // If REMOVE
+                // IF REMOVE
                 else if (choice == "R")
                 {
                     var name = PromptForString("What name are you looking for: ");
@@ -114,20 +119,36 @@ namespace JurasicPark
                     }
                 }
 
-                // if TRANSFER
+                // IF TRANSFER
 
+                // IF SUMMARY
 
-                // IF V
+                // IF VIEW
                 else if (choice == "V")
                 {
-
-                    foreach (var saur in dinoList)
+                    Console.WriteLine("Would you like to view [A]LL or by [D]ate added? ");
+                    var answer = Console.ReadLine().ToUpper();
+                    if (answer == "A")
                     {
-                        var WhenAcquired = dinoList.OrderBy(dinosaur => dinosaur.WhenAcquired);
-                        return;
+                        foreach (var saur in dinoList)
+                        {
+
+                            Console.WriteLine(saur.Name);
+                        }
+                    }
+                    else if (answer == "C")
+                    {
+                        foreach (var saur in dinoList)
+                        {
+                            var WhenAcquired = dinoList.OrderBy(dinosaur => dinosaur.WhenAcquired);
+                            Console.WriteLine(saur.Name);
+                            Console.WriteLine(saur.WhenAcquired);
+                        }
                     }
 
+
                 }
+                //IF ADD
                 else
                 {
                     var dino = new Dino();
@@ -140,6 +161,7 @@ namespace JurasicPark
                     Console.WriteLine();
                     Console.WriteLine($"The new Dinosaur -{dino.Name}- will be added to the Database!");
                     Console.WriteLine();
+
 
 
                     dinoList.Add(dino);
